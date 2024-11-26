@@ -1,17 +1,20 @@
 import random 
 
-deck= [("2",2), ("3",3), ("4",4), ("5",5), ("6",6), ("7",7), ("8",8), ("9",9), ("10",10), ("J", 10), ("K",10), ("A", 11)
 
-]*4
+suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+ranks = [
+    ("2", 2), ("3", 3), ("4", 4), ("5", 5), ("6", 6),
+    ("7", 7), ("8", 8), ("9", 9), ("10", 10),
+    ("J", 10), ("Q", 10), ("K", 10), ("A", 11)
+]
+
+deck = [[rank[0], suit, rank[1]] for suit in suits for rank in ranks] * 4  # Multiply by 4 for a full deck
+
 
 def shuffle_deck(deck):
     random.shuffle(deck)
     return deck
 
-def shuffle_deck(deck):
-    random.shuffle(deck)
-    return deck
- 
 def deal_initial_cards(deck):
     player_hand=[deck.pop(), deck.pop()]
     dealer_hand=[deck.pop(), deck.pop()]
@@ -48,4 +51,5 @@ def main():
 
 if __name__=="__main__":
     main()
+
 
