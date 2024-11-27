@@ -1,5 +1,5 @@
 import random 
-
+from db import read_player_money, write_player_money
 
 suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
 ranks = [
@@ -58,7 +58,7 @@ def get_bet(player_money):
 
 
 def main():
-    player_money = 100.0
+    player_money = read_player_money()
     while player_money >= 5:
         if player_money < 5:
             print("You're out of money! Buy more chips to keep playing.")
@@ -90,6 +90,7 @@ def main():
                 print(display_hand(player_hand))
                 if calculate_score(player_hand) > 21:
                     print("You Busted!")
+                    write_player_money(player_money)
                     player_money-=bet
                     print(f"You lose ${bet:.2f}!")
                     break
@@ -121,12 +122,15 @@ def main():
                     winnings=round(bet*1.5, 2)
                     print(f"Blackjacck! You win ${winnings:.2f}!")
                     player_money += winnings
+                    write_player_money(player_money)
                 else:
                     print(f"You win ${bet:.2f}!")
                     player_money += bet
+                    write_player_money(player_money)
             elif player_score < dealer_score:
                 print("You Lose!")
                 player_money -= bet
+                write_player_money(player_money)
             else:
                 print("It is a tie!")
 
